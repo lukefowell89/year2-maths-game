@@ -1,6 +1,8 @@
 import type { MathsPair } from '../types/game';
 
-// Multiplication: 2x table up to 2x12
+// ── Multiplication ──────────────────────────────────────────────────────────
+
+// 2× table: 2×1 to 2×12
 const mul2: MathsPair[] = Array.from({ length: 12 }, (_, i) => ({
   id: `mul-2-${i + 1}`,
   mode: 'multiplication',
@@ -8,39 +10,43 @@ const mul2: MathsPair[] = Array.from({ length: 12 }, (_, i) => ({
   answer: 2 * (i + 1),
 }));
 
-// Multiplication: 3x table up to 3x12
-const mul3: MathsPair[] = Array.from({ length: 12 }, (_, i) => ({
-  id: `mul-3-${i + 1}`,
+// 5× table: 5×1 to 5×12
+const mul5: MathsPair[] = Array.from({ length: 12 }, (_, i) => ({
+  id: `mul-5-${i + 1}`,
   mode: 'multiplication',
-  prompt: `3 × ${i + 1}`,
-  answer: 3 * (i + 1),
+  prompt: `5 × ${i + 1}`,
+  answer: 5 * (i + 1),
 }));
 
-// Multiplication: 10x table up to 10x10
-const mul10: MathsPair[] = Array.from({ length: 10 }, (_, i) => ({
+// 10× table: 10×1 to 10×12
+const mul10: MathsPair[] = Array.from({ length: 12 }, (_, i) => ({
   id: `mul-10-${i + 1}`,
   mode: 'multiplication',
   prompt: `10 × ${i + 1}`,
   answer: 10 * (i + 1),
 }));
 
-// Division: ÷2 from 2÷2 up to 20÷2
-const div2: MathsPair[] = Array.from({ length: 10 }, (_, i) => ({
+// ── Division ────────────────────────────────────────────────────────────────
+// Each pool uses a SINGLE divisor so answers are unique within the pool.
+// Pools are sized to 16 so they cover the hardest difficulty (4×4 = 16 pairs).
+
+// ÷2: 2÷2 up to 32÷2  (answers 1–16)
+const div2: MathsPair[] = Array.from({ length: 16 }, (_, i) => ({
   id: `div-2-${(i + 1) * 2}`,
   mode: 'division',
   prompt: `${(i + 1) * 2} ÷ 2`,
   answer: i + 1,
 }));
 
-// Division: ÷3 from 3÷3 up to 30÷3
-const div3: MathsPair[] = Array.from({ length: 10 }, (_, i) => ({
-  id: `div-3-${(i + 1) * 3}`,
+// ÷5: 5÷5 up to 80÷5  (answers 1–16)
+const div5: MathsPair[] = Array.from({ length: 16 }, (_, i) => ({
+  id: `div-5-${(i + 1) * 5}`,
   mode: 'division',
-  prompt: `${(i + 1) * 3} ÷ 3`,
+  prompt: `${(i + 1) * 5} ÷ 5`,
   answer: i + 1,
 }));
 
-// Division: ÷10 from 10÷10 up to 500÷10
+// ÷10: 10÷10 up to 500÷10  (answers 1–50)
 const div10: MathsPair[] = Array.from({ length: 50 }, (_, i) => ({
   id: `div-10-${(i + 1) * 10}`,
   mode: 'division',
@@ -48,8 +54,5 @@ const div10: MathsPair[] = Array.from({ length: 50 }, (_, i) => ({
   answer: i + 1,
 }));
 
-export const MULTIPLICATION_POOLS = [mul2, mul3, mul10];
-export const DIVISION_POOLS = [div2, div3, div10];
-
-export const ALL_MULTIPLICATION_PAIRS: MathsPair[] = [...mul2, ...mul3, ...mul10];
-export const ALL_DIVISION_POOLS = { div2, div3, div10 };
+export const MULTIPLICATION_POOLS = [mul2, mul5, mul10];
+export const ALL_DIVISION_POOLS = { div2, div5, div10 };

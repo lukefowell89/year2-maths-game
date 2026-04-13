@@ -50,8 +50,9 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
         state.phase !== 'playing' ||
         state.isLocked ||
         !state.board ||
-        (state.turnPhase !== 'waitingForLeft' && state.turnPhase !== 'leftSelected')
+        state.turnPhase !== 'waitingForLeft'
       ) {
+        // Once a left card is selected, no changing until the turn resolves
         return state;
       }
 
@@ -59,14 +60,7 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
       const card = state.board.leftCards.find((c) => c.pairId === pairId);
       if (!card || card.status === 'matched') return state;
 
-      // Clicking the already-selected card is a no-op
-      if (state.board.selectedLeftPairId === pairId) return state;
-
-      // Flip previous selection back down if one exists
       const updatedLeft = state.board.leftCards.map((c) => {
-        if (c.pairId === state.board!.selectedLeftPairId) {
-          return { ...c, status: 'faceDown' as const };
-        }
         if (c.pairId === pairId) {
           return { ...c, status: 'faceUp' as const };
         }
@@ -233,6 +227,10 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
 
     case 'GO_TO_SETUP': {
       return { ...INITIAL_STATE, phase: 'setup' };
+    }
+
+    case 'GO_TO_IDLE': {
+      return { ...INITIAL_STATE, phase: 'idle' };
     }
 
     default:

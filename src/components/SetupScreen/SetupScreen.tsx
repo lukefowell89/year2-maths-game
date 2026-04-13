@@ -70,7 +70,7 @@ export default function SetupScreen() {
         <div className={styles.actions}>
           <button
             className={styles.backBtn}
-            onClick={() => dispatch({ type: 'GO_TO_SETUP' })}
+            onClick={() => dispatch({ type: 'GO_TO_IDLE' })}
           >
             ← Back
           </button>

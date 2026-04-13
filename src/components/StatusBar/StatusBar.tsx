@@ -43,7 +43,9 @@ export default function StatusBar() {
           aria-label="Return to menu"
           title="Return to menu"
         >
-          🏠
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+          </svg>
         </button>
       </div>
     </header>

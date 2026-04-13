@@ -14,4 +14,5 @@ export type GameAction =
   | { type: 'SELECT_RIGHT'; payload: { pairId: string } }
   | { type: 'RESOLVE_COMPLETE'; payload: { elapsedMs?: number } }
   | { type: 'RESTART_SAME_SETTINGS' }
-  | { type: 'GO_TO_SETUP' };
+  | { type: 'GO_TO_SETUP' }
+  | { type: 'GO_TO_IDLE' };

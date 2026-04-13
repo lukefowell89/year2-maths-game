@@ -23,16 +23,32 @@ interface RightColumnProps {
 
 type CardColumnProps = LeftColumnProps | RightColumnProps;
 
+/** Derives grid columns from the number of cards:
+ *  4  → 2 cols (2×2)
+ *  6  → 3 cols (3×2)
+ *  9  → 3 cols (3×3)
+ *  16 → 4 cols (4×4)
+ */
+function gridColumns(count: number): number {
+  if (count <= 4) return 2;
+  if (count <= 9) return 3;
+  return 4;
+}
+
 export default function CardColumn(props: CardColumnProps) {
   const { side, isLocked, onSelect, lastMatchResult, selectedPairId } = props;
   const isRight = side === 'right';
+  const cols = gridColumns(props.cards.length);
 
   return (
     <div className={styles.column}>
       <div className={`${styles.colLabel} ${isRight ? styles.rightLabel : styles.leftLabel}`}>
         {isRight ? 'Find the answer' : 'Pick a maths card'}
       </div>
-      <div className={styles.grid}>
+      <div
+        className={styles.grid}
+        style={{ '--cols': cols } as React.CSSProperties}
+      >
         {props.cards.map((card) => {
           const isMatched = card.status === 'matched';
           let isDisabled = isLocked || isMatched;
@@ -46,8 +62,6 @@ export default function CardColumn(props: CardColumnProps) {
               ? (card as LeftCard).prompt
               : String((card as RightCard).answer);
 
-          // Green highlight on the currently-selected card (both sides)
-          // while a correct match is resolving, before it pops to matched.
           const isCorrectPending =
             lastMatchResult === 'correct' && card.pairId === selectedPairId;
 
