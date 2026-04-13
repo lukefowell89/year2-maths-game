@@ -1,0 +1,86 @@
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  background: linear-gradient(90deg, #FC466B 0%, #3F5EFB 100%);
+  flex-shrink: 0;
+  min-height: 52px;
+}
+
+.center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  min-width: 0;
+}
+
+.soloStats {
+  display: flex;
+  gap: 1.2rem;
+  align-items: center;
+}
+
+.stat {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  font-weight: 900;
+  color: white;
+  white-space: nowrap;
+  background: rgba(255,255,255,0.18);
+  padding: 0.3rem 0.75rem;
+  border-radius: 50px;
+}
+
+.statIcon {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.right {
+  flex-shrink: 0;
+}
+
+.menuBtn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.25rem;
+  line-height: 1;
+  background: rgba(255,255,255,0.25);
+  color: white;
+  border: 2px solid rgba(255,255,255,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease, transform 0.15s ease;
+  cursor: pointer;
+  padding: 0;
+}
+
+.menuBtn:hover {
+  background: rgba(255,255,255,0.4);
+  transform: scale(1.1);
+}
+
+.menuBtn:active {
+  transform: scale(0.95);
+}
+
+@media (max-width: 520px) {
+  .bar {
+    padding: 0.4rem 0.6rem;
+  }
+
+  .soloStats {
+    gap: 0.6rem;
+  }
+
+  .stat {
+    font-size: 0.78rem;
+    padding: 0.25rem 0.55rem;
+  }
+}

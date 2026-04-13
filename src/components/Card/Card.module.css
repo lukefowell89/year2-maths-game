@@ -1,0 +1,187 @@
+.cardWrapper {
+  perspective: 900px;
+  width: 100%;
+  height: 100%;
+}
+
+.card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 55px;
+  transform-style: preserve-3d;
+  transition: transform 0.55s ease-in-out,
+              box-shadow 0.25s ease;
+  border-radius: 14px;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  display: block;
+}
+
+/* ── Hover: only lift face-down, non-resolving cards ──────── */
+.cardWrapper:not(.flipped):not(.matched):not(.incorrect) .card:hover:not(:disabled) {
+  transform: translateY(-4px) scale(1.03);
+  filter: brightness(1.07);
+}
+
+.flipped .card {
+  transform: rotateY(180deg);
+}
+
+/* Disabled dimming ONLY applies to face-down waiting cards —
+   cards that are currently revealing their answer must stay bright. */
+.disabled:not(.flipped):not(.matched):not(.incorrect) .card {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.disabled.flipped .card,
+.disabled.matched .card,
+.disabled.incorrect .card {
+  cursor: default;
+}
+
+/* Back face */
+.back,
+.front {
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.back {
+  background: linear-gradient(135deg, #0D47A1 0%, #00BCD4 100%);
+  box-shadow: 0 4px 12px rgba(13,71,161,0.35), inset 0 1px 0 rgba(255,255,255,0.15);
+  border: 3px solid rgba(255,255,255,0.2);
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+
+.backSymbol {
+  font-size: clamp(1.8rem, 4.5vw, 2.8rem);
+  font-weight: 900;
+  color: rgba(255,255,255,0.9);
+  text-shadow: 0 2px 10px rgba(0,0,0,0.25);
+  user-select: none;
+}
+
+.front {
+  background: white;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.8);
+  border: 3px solid #e0d6ca;
+  transform: rotateY(180deg);
+}
+
+.label {
+  font-size: clamp(0.85rem, 2.8vw, 1.5rem);
+  font-weight: 900;
+  color: #2d2d2d;
+  user-select: none;
+  text-align: center;
+  padding: 0.2rem;
+  line-height: 1.1;
+}
+
+/* ── Matched state: flip BACK to show ✓ on the back face ────── */
+.matched .card {
+  transform: rotateY(0deg);
+  pointer-events: none;
+}
+
+.matched .back {
+  background: linear-gradient(135deg, #06d6a0, #04a87e);
+  border-color: rgba(255,255,255,0.35);
+  box-shadow: 0 3px 12px rgba(6,214,160,0.4), inset 0 1px 0 rgba(255,255,255,0.25);
+  animation: matchedPop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.matched .backSymbol {
+  color: white;
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
+  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* ── Correct-pending state ──────────────────────────────────── */
+/* The answer reveals plain-white first; after a 1s neutral pause
+   (1.55s total from click, accounting for the 0.55s flip) the green
+   highlight fades in and begins pulsing. */
+.correctPending .front {
+  animation: correctHighlight 0.35s ease 1.55s forwards,
+             correctGlow 1.8s ease-in-out 1.9s infinite;
+}
+
+.correctPending .label {
+  animation: correctLabel 0.3s ease 1.55s forwards;
+}
+
+@keyframes correctHighlight {
+  to {
+    background: linear-gradient(135deg, #d4f5e9, #8ef5cc);
+    border-color: #06d6a0;
+    box-shadow: 0 0 0 4px #06d6a0, 0 6px 20px rgba(6,214,160,0.55);
+  }
+}
+
+@keyframes correctLabel {
+  to { color: #04845f; }
+}
+
+/* ── Incorrect state ────────────────────────────────────────── */
+/* The flip lives on .card (via transition); the shake lives on
+   .cardWrapper (via animation); the red highlight and label recolour
+   also use delayed animations so they appear AFTER the neutral pause. */
+.incorrect .card {
+  transform: rotateY(180deg);
+}
+
+.incorrect.cardWrapper {
+  animation: shakeWrapper 0.65s ease-out 1.55s forwards;
+}
+
+.incorrect .front {
+  animation: incorrectHighlight 0.35s ease 1.55s forwards;
+}
+
+.incorrect .label {
+  animation: incorrectLabel 0.3s ease 1.55s forwards;
+}
+
+@keyframes incorrectHighlight {
+  to {
+    background: linear-gradient(135deg, #ef476f, #c73258);
+    border-color: #c73258;
+    box-shadow: 0 0 0 4px #c73258, 0 6px 20px rgba(239,71,111,0.55);
+  }
+}
+
+@keyframes incorrectLabel {
+  to { color: white; }
+}
+
+@keyframes shakeWrapper {
+  0%   { transform: translateX(0); }
+  15%  { transform: translateX(-9px) rotate(-1.5deg); }
+  30%  { transform: translateX(9px) rotate(1.5deg); }
+  45%  { transform: translateX(-6px) rotate(-0.8deg); }
+  60%  { transform: translateX(6px) rotate(0.8deg); }
+  78%  { transform: translateX(-3px); }
+  90%  { transform: translateX(3px); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes matchedPop {
+  0%   { transform: scale(0.85); opacity: 0.7; }
+  60%  { transform: scale(1.08); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes correctGlow {
+  0%, 100% { box-shadow: 0 0 0 4px #06d6a0, 0 6px 20px rgba(6,214,160,0.45); }
+  50%      { box-shadow: 0 0 0 6px #06d6a0, 0 8px 28px rgba(6,214,160,0.75); }
+}

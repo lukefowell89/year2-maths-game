@@ -1,0 +1,127 @@
+.screen {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  padding: 1.5rem;
+}
+
+.card {
+  background: white;
+  border-radius: 28px;
+  padding: 2.5rem 2rem;
+  width: 100%;
+  max-width: 480px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  animation: popIn 0.4s ease both;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #2d2d2d;
+  text-align: center;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.label {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.option {
+  flex: 1 1 auto;
+  min-width: 120px;
+  padding: 0.75rem 1rem;
+  border-radius: 14px;
+  font-size: 1rem;
+  font-weight: 800;
+  background: #f0f0f0;
+  color: #555;
+  border: 3px solid transparent;
+  transition: all 0.15s ease;
+  text-align: center;
+}
+
+.option:hover {
+  background: #e8e8e8;
+  transform: translateY(-2px);
+}
+
+.option.selected {
+  background: #7b5ea7;
+  color: white;
+  border-color: #5e4585;
+  box-shadow: 0 4px 12px rgba(123,94,167,0.4);
+  transform: translateY(-2px);
+}
+
+.diffOption {
+  min-width: calc(50% - 0.3rem);
+}
+
+.actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.backBtn {
+  padding: 0.75rem 1.25rem;
+  border-radius: 14px;
+  font-size: 1rem;
+  font-weight: 800;
+  background: #f0f0f0;
+  color: #555;
+  transition: all 0.15s ease;
+}
+
+.backBtn:hover {
+  background: #e0e0e0;
+}
+
+.startBtn {
+  flex: 1;
+  padding: 0.9rem 1.5rem;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 900;
+  background: #ff6b35;
+  color: white;
+  box-shadow: 0 5px 16px rgba(255,107,53,0.4);
+  transition: all 0.15s ease;
+}
+
+.startBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(255,107,53,0.5);
+}
+
+.startBtn:active {
+  transform: translateY(0);
+}
+
+@keyframes popIn {
+  0%   { opacity: 0; transform: scale(0.85) translateY(20px); }
+  70%  { transform: scale(1.02) translateY(-3px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
