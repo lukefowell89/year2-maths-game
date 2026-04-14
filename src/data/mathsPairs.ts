@@ -28,26 +28,26 @@ const mul10: MathsPair[] = Array.from({ length: 12 }, (_, i) => ({
 
 // ── Division ────────────────────────────────────────────────────────────────
 // Each pool uses a SINGLE divisor so answers are unique within the pool.
-// Pools are sized to 16 so they cover the hardest difficulty (4×4 = 16 pairs).
+// Pools are sized to 12 (answers 1–12) matching the max difficulty pair count.
 
-// ÷2: 2÷2 up to 32÷2  (answers 1–16)
-const div2: MathsPair[] = Array.from({ length: 16 }, (_, i) => ({
+// ÷2: 2÷2 up to 24÷2  (answers 1–12)
+const div2: MathsPair[] = Array.from({ length: 12 }, (_, i) => ({
   id: `div-2-${(i + 1) * 2}`,
   mode: 'division',
   prompt: `${(i + 1) * 2} ÷ 2`,
   answer: i + 1,
 }));
 
-// ÷5: 5÷5 up to 80÷5  (answers 1–16)
-const div5: MathsPair[] = Array.from({ length: 16 }, (_, i) => ({
+// ÷5: 5÷5 up to 60÷5  (answers 1–12)
+const div5: MathsPair[] = Array.from({ length: 12 }, (_, i) => ({
   id: `div-5-${(i + 1) * 5}`,
   mode: 'division',
   prompt: `${(i + 1) * 5} ÷ 5`,
   answer: i + 1,
 }));
 
-// ÷10: 10÷10 up to 500÷10  (answers 1–50)
-const div10: MathsPair[] = Array.from({ length: 50 }, (_, i) => ({
+// ÷10: 10÷10 up to 120÷10  (answers 1–12)
+const div10: MathsPair[] = Array.from({ length: 12 }, (_, i) => ({
   id: `div-10-${(i + 1) * 10}`,
   mode: 'division',
   prompt: `${(i + 1) * 10} ÷ 10`,
